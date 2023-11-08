@@ -1,20 +1,22 @@
 # main links links
 main:
-   - title: "Recent Projects"
-    url: /Recent Projects/ 
-  
   - title: "Publications"
     url: /publications/
 
+  - title: "Recent Projects"
+    url: /recent projects/    
+
   - title: "Patents"
-    url: /Patents/       
+    url: /patents/    
     
   - title: "Experiences"
-    url: /Experiences/
-    
+    url: /experiences/
+        
   - title: "CV"
     url: /cv/
     
+  # - title: "CV"
+  #   url: /cv/
     
   # - title: "Guide"
   #   url: /markdown/
