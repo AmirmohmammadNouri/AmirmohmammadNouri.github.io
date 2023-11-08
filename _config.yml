@@ -82,10 +82,10 @@ analytics:
 author:
   name             : "AmirMohammad Nouri"
   avatar           : "profile.png"
-  bio              : ""Living life to the fullest, one heartbeat at a time""
-  
-  employer         : 
-  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
+  bio              : "Living life to the fullest, one heartbeat at a time"
+  location         : 
+  employer         :
+  pubmed           : 
   googlescholar    : "http://yourfullgooglescholarurl.com"
   email            :
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
@@ -102,7 +102,7 @@ author:
   instagram        :
   impactstory      : 
   lastfm           :
-  linkedin         :  "https://www.linkedin.com/in/amir-mohammad-nouri/"
+  linkedin         : "https://www.linkedin.com/in/amir-mohammad-nouri/"
   orcid            : 
   pinterest        :
   soundcloud       :
@@ -115,7 +115,6 @@ author:
   xing             :
   youtube          :
   wikipedia        :
-
 
 # Reading Files
 include:
