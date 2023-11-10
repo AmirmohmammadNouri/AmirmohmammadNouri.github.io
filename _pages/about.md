@@ -9,13 +9,13 @@ redirect_from:
 ---
 
 
-
-![Illustration of combining vision and language modalities](/images/images6.jpeg){: .align-right width = "100px"}
 👨🏻‍💻 I'm a researcher/programmer in medical image inalysis field
 
 My research interests are ... 
 
 I am currently working on ....
+![Illustration of combining vision and language modalities](/images/images6.jpeg){: .align-right width = "100px"}
+
 
 
 A data-driven personal website
