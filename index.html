@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amirmohammad Nouri | AI Engineer & Computer Vision Researcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #17171f;
+      --border: rgba(255,255,255,0.07);
+      --text: #e8e8f0;
+      --muted: #7a7a9a;
+      --accent: #5b8fff;
+      --accent2: #a78bfa;
+      --accent3: #34d399;
+      --glow: rgba(91,143,255,0.15);
+      --font-display: 'EB Garamond', Georgia, serif;
+      --font-body: 'EB Garamond', Georgia, serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── Noise texture overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+      letter-spacing: 0.2px;
+    }
+
+    .nav-links a:hover { color: var(--text); background: var(--surface2); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--muted);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(91,143,255,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(167,139,250,0.06) 0%, transparent 60%);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(91,143,255,0.1);
+      border: 1px solid rgba(91,143,255,0.2);
+      color: var(--accent);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent3);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    h1.hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -2px;
+      margin-bottom: 1rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero-name .line2 {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 2rem;
+      font-weight: 400;
+      line-height: 1.8;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-subtitle strong { color: var(--text); font-weight: 600; }
+
+    .hero-ctas {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s;
+      box-shadow: 0 0 30px rgba(91,143,255,0.3);
+    }
+
+    .btn-primary:hover {
+      background: #4a7ef0;
+      transform: translateY(-1px);
+      box-shadow: 0 0 40px rgba(91,143,255,0.5);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,0.2);
+      background: var(--surface2);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 3rem;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 0.25rem;
+    }
+
+    /* ── HERO AVATAR ── */
+    .hero-avatar-wrap {
+      position: relative;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-avatar {
+      width: 280px;
+      height: 280px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--surface2), var(--surface));
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    /* When a real photo is used, the img fills the container */
+    .hero-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 24px;
+      display: block;
+    }
+
+    .hero-avatar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 30%, rgba(91,143,255,0.1), transparent 60%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Spinning ring sits outside the avatar box */
+    .hero-avatar-ring {
+      position: absolute;
+      inset: -14px;
+      border-radius: 34px;
+      border: 1.5px solid rgba(91,143,255,0.25);
+      animation: spin 20s linear infinite;
+      pointer-events: none;
+    }
+
+    /* Second, slower ring for depth */
+    .hero-avatar-ring2 {
+      position: absolute;
+      inset: -26px;
+      border-radius: 44px;
+      border: 1px dashed rgba(167,139,250,0.15);
+      animation: spin 35s linear infinite reverse;
+      pointer-events: none;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 2rem; }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    h2.section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 3rem;
+      line-height: 1.1;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+
+    .about-text p strong { color: var(--text); font-weight: 600; }
+
+    .about-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    .meta-icon {
+      font-size: 1.1rem;
+      width: 28px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .meta-label {
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+
+    .meta-value {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.9rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .social-link:hover {
+      color: var(--text);
+      border-color: var(--accent);
+      background: rgba(91,143,255,0.05);
+    }
+
+    /* ── EXPERIENCE ── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .exp-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      border-radius: 3px 0 0 3px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .exp-card:hover { border-color: rgba(91,143,255,0.3); transform: translateX(4px); }
+    .exp-card:hover::before { opacity: 1; }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .exp-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .exp-period {
+      font-size: 0.9rem;
+      color: var(--accent);
+      background: rgba(91,143,255,0.1);
+      border: 1px solid rgba(91,143,255,0.2);
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    .exp-company {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .exp-company span { color: var(--accent2); font-weight: 500; }
+
+    .exp-desc {
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.8;
+    }
+
+    .exp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
+      background: var(--surface2);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: all 0.25s;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(91,143,255,0.05), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover {
+      border-color: rgba(91,143,255,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .project-card:hover::after { opacity: 1; }
+
+    .project-icon { font-size: 1.6rem; margin-bottom: 0.75rem; }
+
+    .project-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 1rem;
+    }
+
+    .project-tag {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .pt-blue   { background: rgba(91,143,255,0.1);  color: #7aabff; }
+    .pt-purple { background: rgba(167,139,250,0.1); color: #b39dfa; }
+    .pt-green  { background: rgba(52,211,153,0.1);  color: #5edcb5; }
+    .pt-orange { background: rgba(251,146,60,0.1);  color: #fca06e; }
+    .pt-pink   { background: rgba(236,72,153,0.1);  color: #f06bb0; }
+
+    /* ── SKILLS ── */
+    #skills {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .skill-group {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .skill-group-title {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 0.85rem;
+    }
+
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .chip {
+      font-size: 0.9rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 7px;
+      background: var(--surface2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      font-weight: 400;
+      transition: all 0.15s;
+    }
+
+    .chip:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── PUBLICATIONS ── */
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .pub-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: all 0.2s;
+    }
+
+    .pub-card:hover { border-color: rgba(91,143,255,0.25); }
+
+    .pub-venue {
+      flex-shrink: 0;
+      background: rgba(91,143,255,0.1);
+      border: 1px solid rgba(91,143,255,0.2);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      margin-top: 0.2rem;
+      white-space: nowrap;
+    }
+
+    .pub-title {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+      line-height: 1.5;
+    }
+
+    .pub-authors {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .pub-status {
+      font-size: 0.875rem;
+      color: var(--accent3);
+      font-weight: 600;
+      margin-top: 0.3rem;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      transition: all 0.2s;
+    }
+
+    .edu-card:hover { border-color: rgba(167,139,250,0.3); }
+
+    .edu-degree {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .edu-school {
+      color: var(--accent2);
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+
+    .edu-period {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .edu-gpa {
+      font-size: 0.95rem;
+      color: var(--accent3);
+      font-weight: 600;
+    }
+
+    /* ── CERTIFICATIONS ── */
+    #certifications {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .cert-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      transition: all 0.2s;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .cert-card:hover {
+      border-color: rgba(91,143,255,0.25);
+      transform: translateY(-2px);
+    }
+
+    .cert-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+    .cert-name {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+      line-height: 1.3;
+    }
+
+    .cert-issuer {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    /* ── AWARDS ── */
+    .awards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .award-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+
+    .award-item:hover { border-color: rgba(52,211,153,0.3); }
+
+    .award-medal { font-size: 1.5rem; flex-shrink: 0; }
+
+    .award-text {
+      font-size: 1rem;
+      font-weight: 500;
+      flex: 1;
+    }
+
+    .award-year {
+      font-size: 0.9rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; }
+
+    .contact-inner { max-width: 600px; margin: 0 auto; }
+
+    .contact-inner p {
+      color: var(--muted);
+      font-weight: 400;
+      margin-bottom: 2rem;
+      font-size: 1.05rem;
+    }
+
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid rgba(91,143,255,0.3);
+      border-radius: 10px;
+      transition: all 0.2s;
+      margin-bottom: 2rem;
+    }
+
+    .contact-email:hover {
+      background: rgba(91,143,255,0.08);
+      box-shadow: 0 0 30px rgba(91,143,255,0.2);
+    }
+
+    .contact-socials {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 60px; left: 0; right: 0;
+        background: var(--bg);
+        padding: 1rem;
+        border-bottom: 1px solid var(--border);
+        z-index: 99;
+      }
+      .hamburger { display: flex; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-avatar-wrap { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1rem; }
+      section { padding: 4rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">AN.</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#certifications">Certs</a></li>
+      <li><a href="#awards">Awards</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-tag">Available for Opportunities</div>
+        <h1 class="hero-name">
+          Amirmohammad<br>
+          <span class="line2">Nouri</span>
+        </h1>
+        <p class="hero-subtitle">
+          AI Engineer specializing in <strong>Computer Vision</strong>, <strong>Medical Image Analysis</strong>, and <strong>Sports Broadcasting AI</strong>. Building production-grade vision systems across healthcare, robotics, and live media.
+        </p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn-primary">Contact Me</a>
+          <a href="#projects" class="btn-secondary">View Projects</a>
+          <a href="mailto:amir.mohammad.nouri2000@gmail.com" class="btn-secondary">Email</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-num">4+</div>
+            <div class="stat-label">Years Exp.</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Publications</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">2</div>
+            <div class="stat-label">Patents</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">7.5</div>
+            <div class="stat-label">IELTS</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AVATAR — replace "photo.jpg" with your image filename to show your photo -->
+      <div class="hero-avatar-wrap">
+        <div class="hero-avatar-ring2"></div>
+        <div class="hero-avatar-ring"></div>
+        <div class="hero-avatar">
+          <!-- To use your photo: replace the line below with:
+               <img src="photo.jpg" alt="Amirmohammad Nouri" />
+               and delete the "AN" text node -->
+          AN
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid reveal">
+        <div class="about-text">
+          <p class="section-label">About</p>
+          <h2 class="section-title">Who I Am</h2>
+          <p>I'm an AI Engineer with a deep passion for <strong>computer vision</strong> and intelligent systems. My work spans <strong>sports media technology</strong>, <strong>medical imaging</strong>, and <strong>wearable biosignal analysis</strong> — building end-to-end AI pipelines from research to production deployment.</p>
+          <p>With a background in <strong>Biomedical Engineering</strong> and hands-on experience across Tehran, Yerevan, and international competitions, I bridge the gap between academic research and real-world AI systems. I've built camera calibration and virtual advertisement systems for live stadiums, deep learning platforms for orthodontic planning, and real-time ECG/PPG analysis pipelines.</p>
+          <p>Currently working as an <strong>AI Engineer in Camera Systems & Sports Media</strong> at Moj Co., developing algorithms for perspective transformation and field localization in high-resolution broadcasting environments.</p>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/" class="social-link">🔗 LinkedIn</a>
+            <a href="mailto:amir.mohammad.nouri2000@gmail.com" class="social-link">✉️ Email</a>
+          </div>
+        </div>
+        <div class="about-meta">
+          <div class="meta-item">
+            <span class="meta-icon">📍</span>
+            <div>
+              <div class="meta-label">Location</div>
+              <div class="meta-value">Tehran, Iran</div>
+            </div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">🎓</span>
+            <div>
+              <div class="meta-label">Education</div>
+              <div class="meta-value">BSc Biomedical Engineering — QIAU</div>
+            </div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">💼</span>
+            <div>
+              <div class="meta-label">Current Role</div>
+              <div class="meta-value">AI Engineer @ Moj Co.</div>
+            </div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">🏆</span>
+            <div>
+              <div class="meta-label">Achievement</div>
+              <div class="meta-value">1st Place — Intl. UAV Robot League (2× winner)</div>
+            </div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">🌐</span>
+            <div>
+              <div class="meta-label">Languages</div>
+              <div class="meta-value">English (IELTS 7.5) · Persian (Native)</div>
+            </div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">🔬</span>
+            <div>
+              <div class="meta-label">Status</div>
+              <div class="meta-value">Open to research collaborations & new roles</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <p class="section-label reveal">Experience</p>
+      <h2 class="section-title reveal">Work History</h2>
+      <div class="timeline">
+
+        <div class="exp-card reveal">
+          <div class="exp-header">
+            <div class="exp-title">AI Engineer — Camera Systems & Sports Media</div>
+            <div class="exp-period">Mar 2026 – Present</div>
+          </div>
+          <div class="exp-company"><span>Moj Co.</span> · Tehran, Iran · On-site</div>
+          <p class="exp-desc">Implementing and optimizing real-time algorithms for camera geometry estimation, perspective transformation, and field localization in high-resolution sports broadcasting environments. Developing AI and image processing solutions for stadium camera calibration, virtual advertisement insertion, and tracking systems using C++ and computer vision techniques.</p>
+          <div class="exp-tags">
+            <span class="tag">Computer Vision</span>
+            <span class="tag">C++</span>
+            <span class="tag">Camera Calibration</span>
+            <span class="tag">Sports Broadcasting</span>
+            <span class="tag">Real-Time Systems</span>
+          </div>
+        </div>
+
+        <div class="exp-card reveal">
+          <div class="exp-header">
+            <div class="exp-title">AI & Software Engineer — Biosignal Analysis</div>
+            <div class="exp-period">Dec 2025 – Mar 2026</div>
+          </div>
+          <div class="exp-company"><span>Vitruvian Shield</span> · Yerevan, Armenia · Hybrid</div>
+          <p class="exp-desc">Designed and implemented AI-based signal processing pipelines for wearable health monitoring systems, including real-time analysis of ECG, PPG, and motion sensor data for physiological state estimation and anomaly detection.</p>
+          <div class="exp-tags">
+            <span class="tag">ECG / PPG</span>
+            <span class="tag">Signal Processing</span>
+            <span class="tag">Wearables</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">Anomaly Detection</span>
+          </div>
+        </div>
+
+        <div class="exp-card reveal">
+          <div class="exp-header">
+            <div class="exp-title">AI Engineer — Medical Image Analysis</div>
+            <div class="exp-period">Jan 2024 – Dec 2025</div>
+          </div>
+          <div class="exp-company"><span>Med Fanavaran Plus (SIMUT)</span> · Karaj, Iran · Full-time</div>
+          <p class="exp-desc">Developed and deployed deep learning systems for medical imaging across multiple modalities — ultrasound, CT, and radiography. Built systems for orthodontic treatment planning, colonoscopy polyp detection, pulmonary embolism segmentation, and fetal biometry measurement.</p>
+          <div class="exp-tags">
+            <span class="tag">Deep Learning</span>
+            <span class="tag">MONAI</span>
+            <span class="tag">YOLOv8</span>
+            <span class="tag">ViT</span>
+            <span class="tag">Medical Imaging</span>
+            <span class="tag">PyTorch</span>
+          </div>
+        </div>
+
+        <div class="exp-card reveal">
+          <div class="exp-header">
+            <div class="exp-title">Research Assistant — Computer Vision (UAV)</div>
+            <div class="exp-period">2021 – 2023</div>
+          </div>
+          <div class="exp-company"><span>Mechatronics Research Laboratory (MRL)</span> · Qazvin, Iran</div>
+          <p class="exp-desc">Tested and implemented deep learning object detection algorithms on custom datasets for UAV missions. Contributed to vision-based quadrotor line following research using sliding mode controllers. Represented the team at RoboCup 2023 in Tianjin, China.</p>
+          <div class="exp-tags">
+            <span class="tag">Object Detection</span>
+            <span class="tag">UAV / Robotics</span>
+            <span class="tag">ROS</span>
+            <span class="tag">RoboCup</span>
+            <span class="tag">SLAM</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <p class="section-label reveal">Projects</p>
+      <h2 class="section-title reveal">Selected Work</h2>
+      <div class="projects-grid">
+
+        <div class="project-card reveal">
+          <div class="project-icon">📡</div>
+          <div class="project-name">Real-time Sports Broadcasting Vision System</div>
+          <p class="project-desc">Real-time algorithms for camera geometry estimation, perspective transformation, and field localization in high-resolution sports broadcasting environments.</p>
+          <div class="project-tags">
+            <span class="project-tag pt-blue">Computer Vision</span>
+            <span class="project-tag pt-orange">C++</span>
+            <span class="project-tag pt-green">Real-Time</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-icon">🏟️</div>
+          <div class="project-name">Stadium Camera Calibration & Ad System</div>
+          <p class="project-desc">AI-driven camera calibration with virtual advertisement insertion and player tracking during live sports events.</p>
+          <div class="project-tags">
+            <span class="project-tag pt-blue">Camera Calibration</span>
+            <span class="project-tag pt-purple">Virtual Ads</span>
+            <span class="project-tag pt-orange">Tracking</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-icon">🦷</div>
+          <div class="project-name">Lateral Cephalometric Radiography System</div>
+          <p class="project-desc">Deep learning system for orthodontic treatment planning in children. ViT-based feature extraction with automated landmark detection. <em>Patent pending · Under review at Orthodontics Craniofacial Research.</em></p>
+          <div class="project-tags">
+            <span class="project-tag pt-purple">ViT</span>
+            <span class="project-tag pt-blue">PyTorch</span>
+            <span class="project-tag pt-green">Medical AI</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-icon">🔬</div>
+          <div class="project-name">HealthyScope — Colonoscopy AI</div>
+          <p class="project-desc">AI-driven system for colonoscopy assistance integrating detection, segmentation, and classification of colon polyps for early colorectal cancer prevention.</p>
+          <div class="project-tags">
+            <span class="project-tag pt-blue">Segmentation</span>
+            <span class="project-tag pt-purple">Classification</span>
+            <span class="project-tag pt-green">Healthcare</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-icon">🫁</div>
+          <div class="project-name">Pulmonary Embolism Segmentation (CT)</div>
+          <p class="project-desc">U-Net-based deep learning architecture using PyTorch and MONAI for precise semantic segmentation of embolisms in lung CT scans.</p>
+          <div class="project-tags">
+            <span class="project-tag pt-blue">U-Net</span>
+            <span class="project-tag pt-orange">MONAI</span>
+            <span class="project-tag pt-green">CT Imaging</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-icon">🤱</div>
+          <div class="project-name">Fetal Ultrasound Biometry</div>
+          <p class="project-desc">Automated fetal head circumference and nuchal translucency (NT) measurement from 2D ultrasound images using YOLOv8. <em>Under review at Int. J. Imaging Systems Technology.</em></p>
+          <div class="project-tags">
+            <span class="project-tag pt-blue">YOLOv8</span>
+            <span class="project-tag pt-purple">Ultrasound</span>
+            <span class="project-tag pt-green">Prenatal AI</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-icon">💓</div>
+          <div class="project-name">Biosignal Analysis for Wearables</div>
+          <p class="project-desc">Real-time AI-based pipeline for ECG, PPG, and motion sensor data processing — physiological state estimation and anomaly detection on wearable devices.</p>
+          <div class="project-tags">
+            <span class="project-tag pt-orange">ECG / PPG</span>
+            <span class="project-tag pt-blue">Signal Processing</span>
+            <span class="project-tag pt-pink">Wearables</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-icon">🚁</div>
+          <div class="project-name">UAV Object Detection & Line Following</div>
+          <p class="project-desc">Deep learning object detection for UAV missions with custom datasets. Vision-based quadrotor line following using sliding mode controllers. Published at ICAIR 2024.</p>
+          <div class="project-tags">
+            <span class="project-tag pt-blue">UAV</span>
+            <span class="project-tag pt-purple">Object Detection</span>
+            <span class="project-tag pt-orange">ROS</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-icon">❤️</div>
+          <div class="project-name">Echocardiography Analysis</div>
+          <p class="project-desc">Vector Flow Imaging and Speckle Tracking (Block Matching) algorithms for cardiac strain measurement and flow visualization in echocardiography.</p>
+          <div class="project-tags">
+            <span class="project-tag pt-pink">Echocardiography</span>
+            <span class="project-tag pt-blue">VFI</span>
+            <span class="project-tag pt-green">Strain Analysis</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <p class="section-label reveal">Skills</p>
+      <h2 class="section-title reveal">Technical Stack</h2>
+      <div class="skills-grid">
+        <div class="skill-group reveal">
+          <div class="skill-group-title">Languages</div>
+          <div class="skill-chips">
+            <span class="chip">Python</span>
+            <span class="chip">C++</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">HTML / CSS</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-title">CV & ML Frameworks</div>
+          <div class="skill-chips">
+            <span class="chip">PyTorch</span>
+            <span class="chip">TensorFlow</span>
+            <span class="chip">OpenCV</span>
+            <span class="chip">MONAI</span>
+            <span class="chip">scikit-learn</span>
+            <span class="chip">YOLO</span>
+            <span class="chip">DepthAI</span>
+            <span class="chip">ONNX</span>
+            <span class="chip">TensorRT</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-title">LLM & AI Tools</div>
+          <div class="skill-chips">
+            <span class="chip">Hugging Face</span>
+            <span class="chip">LangChain</span>
+            <span class="chip">FastAPI</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-title">MLOps & DevOps</div>
+          <div class="skill-chips">
+            <span class="chip">Docker</span>
+            <span class="chip">Kubernetes</span>
+            <span class="chip">MLflow</span>
+            <span class="chip">DVC</span>
+            <span class="chip">Apache Airflow</span>
+            <span class="chip">Astronomer</span>
+            <span class="chip">Git</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-title">Platforms & Tools</div>
+          <div class="skill-chips">
+            <span class="chip">Linux</span>
+            <span class="chip">ROS</span>
+            <span class="chip">SLAM</span>
+            <span class="chip">SQL</span>
+            <span class="chip">3D Slicer</span>
+            <span class="chip">ITK-SNAP</span>
+            <span class="chip">DICOM Toolkits</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-title">Soft Skills</div>
+          <div class="skill-chips">
+            <span class="chip">Teamwork</span>
+            <span class="chip">Leadership</span>
+            <span class="chip">Technical Communication</span>
+            <span class="chip">Problem Solving</span>
+            <span class="chip">Public Speaking</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="container">
+      <p class="section-label reveal">Research</p>
+      <h2 class="section-title reveal">Publications</h2>
+      <div class="pub-list">
+
+        <div class="pub-card reveal">
+          <div class="pub-venue">Journal</div>
+          <div>
+            <div class="pub-title">Designing a ViT-based Lateral Cephalometric Radiography Processing System for Treatment Planning with Removable Orthodontic Appliances in Children</div>
+            <div class="pub-authors">Nouri, A., Rajaei, I., et al. — Orthodontics Craniofacial Research · 2025</div>
+            <div class="pub-status">⏳ Under Review</div>
+          </div>
+        </div>
+
+        <div class="pub-card reveal">
+          <div class="pub-venue">Journal</div>
+          <div>
+            <div class="pub-title">Development and Evaluation of a Deep Learning Model Using YOLOv8 to Measure Nuchal Translucency from Obstetric Ultrasound Images in First-Trimester Screening</div>
+            <div class="pub-authors">Nouri, A., Arefi, S., et al. — Int. J. Imaging Systems Technology (IMA) · 2025</div>
+            <div class="pub-status">⏳ Under Review</div>
+          </div>
+        </div>
+
+        <div class="pub-card reveal">
+          <div class="pub-venue">Journal</div>
+          <div>
+            <div class="pub-title">Automated AI-Driven Measurement of Kidney Length in Ultrasound Images</div>
+            <div class="pub-authors">Amini, L., Ghelich, M., Tarzamni, MK., Moradi, K., Nouri, A., et al. — Scientific Reports · 2025</div>
+            <div class="pub-status">⏳ Under Review</div>
+          </div>
+        </div>
+
+        <div class="pub-card reveal">
+          <div class="pub-venue">Conference</div>
+          <div>
+            <div class="pub-title">A Vision-Based Approach for Quadrotor Line Following with Sliding Mode Controller</div>
+            <div class="pub-authors">Hazareh, G., Azizi, K., Mazloumi, A., Nouri, A., et al. — 10th Intl. Conference on AI and Robotics · 2024</div>
+            <div class="pub-status">✅ Published</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <p class="section-label reveal">Education</p>
+      <h2 class="section-title reveal">Academic Background</h2>
+      <div class="edu-grid">
+        <div class="edu-card reveal">
+          <div class="edu-degree">BSc in Biomedical Engineering (Bioelectric)</div>
+          <div class="edu-school">Qazvin Islamic Azad University</div>
+          <div class="edu-period">2021 – 2024 · Qazvin, Iran</div>
+          <div class="edu-gpa">CGPA: 18.75 / 20 (3.8 / 4.0)</div>
+        </div>
+        <div class="edu-card reveal">
+          <div class="edu-degree">High School Diploma — Natural Sciences</div>
+          <div class="edu-school">Shahid Soltani 2 (SAMPAD)</div>
+          <div class="edu-period">2014 – 2020 · Alborz, Iran</div>
+          <div class="edu-gpa">National Exceptional Talents Organization (Top 5% — 2013)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="container">
+      <p class="section-label reveal">Credentials</p>
+      <h2 class="section-title reveal">Certifications</h2>
+      <div class="cert-grid">
+        <div class="cert-card reveal">
+          <div class="cert-icon">🎓</div>
+          <div>
+            <div class="cert-name">MBA</div>
+            <div class="cert-issuer">Tehran University — Applied Education Center</div>
+          </div>
+        </div>
+        <div class="cert-card reveal">
+          <div class="cert-icon">👁️</div>
+          <div>
+            <div class="cert-name">Advanced Computer Vision with TensorFlow</div>
+            <div class="cert-issuer">DeepLearning.ai / Coursera</div>
+          </div>
+        </div>
+        <div class="cert-card reveal">
+          <div class="cert-icon">🧠</div>
+          <div>
+            <div class="cert-name">Convolutional Neural Networks</div>
+            <div class="cert-issuer">DeepLearning.ai / Coursera</div>
+          </div>
+        </div>
+        <div class="cert-card reveal">
+          <div class="cert-icon">📊</div>
+          <div>
+            <div class="cert-name">Supervised Machine Learning</div>
+            <div class="cert-issuer">Coursera</div>
+          </div>
+        </div>
+        <div class="cert-card reveal">
+          <div class="cert-icon">🏥</div>
+          <div>
+            <div class="cert-name">PyTorch and MONAI for AI Healthcare Imaging</div>
+            <div class="cert-issuer">Coursera</div>
+          </div>
+        </div>
+        <div class="cert-card reveal">
+          <div class="cert-icon">🐳</div>
+          <div>
+            <div class="cert-name">Microservices Deployment</div>
+            <div class="cert-issuer">Docker & Kubernetes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section id="awards" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <p class="section-label reveal">Recognition</p>
+      <h2 class="section-title reveal">Honors & Awards</h2>
+      <div class="awards-list">
+        <div class="award-item reveal">
+          <div class="award-medal">🌍</div>
+          <div class="award-text">Representative Team — RoboCup Competition, Tianjin, China</div>
+          <div class="award-year">2023</div>
+        </div>
+        <div class="award-item reveal">
+          <div class="award-medal">🥇</div>
+          <div class="award-text">1st Place — International UAV Robot League, Tehran, Iran</div>
+          <div class="award-year">2023</div>
+        </div>
+        <div class="award-item reveal">
+          <div class="award-medal">🥇</div>
+          <div class="award-text">1st Place — International UAV Robot League, Tehran, Iran</div>
+          <div class="award-year">2022</div>
+        </div>
+        <div class="award-item reveal">
+          <div class="award-medal">⭐</div>
+          <div class="award-text">Top 5% — National Entrance Exam, SAMPAD (Exceptional Talents Organization), Alborz</div>
+          <div class="award-year">2013</div>
+        </div>
+        <div class="award-item reveal">
+          <div class="award-medal">📜</div>
+          <div class="award-text">Patent: Lateral Cephalometric Radiography Processing System (ML-based) — Under Review</div>
+          <div class="award-year">2025</div>
+        </div>
+        <div class="award-item reveal">
+          <div class="award-medal">📜</div>
+          <div class="award-text">Patent: Antibacterial Hospital Bed with Silver Nanoparticles — IR Reg. No. 103694</div>
+          <div class="award-year">2021</div>
+        </div>
+        <div class="award-item reveal">
+          <div class="award-medal">📜</div>
+          <div class="award-text">Patent: Horseshoes with Carbon NanoComposites — IR Reg. No. 88786</div>
+          <div class="award-year">2016</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-inner reveal">
+        <p class="section-label" style="text-align:center;">Contact</p>
+        <h2 class="section-title" style="text-align:center;">Get In Touch</h2>
+        <p>Open to research collaborations, AI engineering roles, and meaningful conversations about computer vision, medical imaging, and sports technology.</p>
+        <a href="mailto:amir.mohammad.nouri2000@gmail.com" class="contact-email">
+          ✉️ amir.mohammad.nouri2000@gmail.com
+        </a>
+        <div class="contact-socials">
+          <a href="https://www.linkedin.com/in/" class="social-link">🔗 LinkedIn</a>
+          <a href="mailto:amir.mohammad.nouri2000@gmail.com" class="social-link">✉️ Email</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Amirmohammad Nouri · AI Engineer & Computer Vision Researcher</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    const sections = document.querySelectorAll('section[id]');
+    const navAs = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+      navAs.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--text)' : '';
+      });
+    });
+  </script>
+</body>
+</html>
