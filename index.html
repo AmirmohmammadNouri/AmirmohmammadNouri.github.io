@@ -820,6 +820,27 @@
       .hero-stats { gap: 1rem; }
       section { padding: 4rem 1.25rem; }
     }
+    .pub-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.85rem;
+      padding: 0.4rem 1rem;
+      background: rgba(26,122,101,0.12);
+      border: 1px solid rgba(26,122,101,0.35);
+      border-radius: 7px;
+      color: var(--teal-lt);
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .pub-btn:hover {
+      background: rgba(26,122,101,0.22);
+      border-color: var(--teal-lt);
+      transform: translateX(3px);
+    }
   </style>
 </head>
 <body>
@@ -947,8 +968,7 @@
 
         <div class="exp-card teal reveal">
           <div class="exp-card-logo">
-            <!-- Replace with: <img src="logos/moj.png" alt="Moj Co." /> -->
-            &#x1F4E1;
+            <img src="Moj.jpeg" alt="Moj Co." />
           </div>
           <div class="exp-card-header">
             <div class="exp-title">AI Engineer &mdash; Camera Systems &amp; Sports Media</div>
@@ -963,7 +983,9 @@
         </div>
 
         <div class="exp-card gold reveal">
-          <div class="exp-card-logo">&#x1F493;</div>
+          <div class="exp-card-logo">
+            <img src="Vit.png" alt="Moj Co." />
+          </div>
           <div class="exp-card-header">
             <div class="exp-title">AI &amp; Software Engineer &mdash; Biosignal Analysis</div>
             <div class="exp-period">Dec 2025 &ndash; Mar 2026</div>
@@ -976,7 +998,9 @@
         </div>
 
         <div class="exp-card slate reveal">
-          <div class="exp-card-logo">&#x1FA7A;</div>
+          <div class="exp-card-logo">
+            <img src="SIMUT.png" alt="Moj Co." />
+          </div>
           <div class="exp-card-header">
             <div class="exp-title">AI Engineer &mdash; Medical Image Analysis</div>
             <div class="exp-period">Jan 2024 &ndash; Dec 2025</div>
@@ -992,19 +1016,44 @@
         </div>
 
         <div class="exp-card stone reveal">
-          <div class="exp-card-logo">&#x1F681;</div>
+          <div class="exp-card-logo">
+            <img src="MRL.png" alt="MRL" />
+          </div>
           <div class="exp-card-header">
             <div class="exp-title">Research Assistant &mdash; Computer Vision (UAV)</div>
             <div class="exp-period">2021 &ndash; 2023</div>
           </div>
           <div class="exp-company"><span>Mechatronics Research Laboratory (MRL)</span> &middot; Qazvin, Iran</div>
           <div class="exp-projects">
-            <div class="exp-project"><div class="exp-project-name">UAV Object Detection &amp; Line Following</div><div class="exp-project-desc">Deep learning object detection on custom UAV datasets; vision-based quadrotor line following with sliding mode controller. Published at ICAIR 2024. RoboCup 2023, Tianjin, China.</div></div>
+            <div class="exp-project">
+              <div class="exp-project-name">UAV Object Detection &amp; Line Following</div>
+              <div class="exp-project-desc">Deep learning object detection on custom UAV datasets; vision-based quadrotor line following with sliding mode controller. Published at ICAIR 2024. RoboCup 2023, Tianjin, China.</div>
+            </div>
+            <div class="exp-project">
+              <div class="exp-project-name">Autonomous Path Planning</div>
+              <div class="exp-project-desc">Designed and implemented path planning algorithms for UAV navigation in dynamic environments, enabling obstacle-aware autonomous routing and waypoint tracking.</div>
+            </div>
+            <div class="exp-project">
+              <div class="exp-project-name">Autonomous Movement Control</div>
+              <div class="exp-project-desc">Developed low-level control systems for stable UAV flight, integrating PID and sliding mode controllers with real-time sensor feedback for precise position and velocity regulation.</div>
+            </div>
+            <div class="exp-project">
+              <div class="exp-project-name">SLAM &amp; Environment Mapping</div>
+              <div class="exp-project-desc">Applied simultaneous localization and mapping techniques for UAV spatial awareness, enabling real-time map construction and position estimation in GPS-denied environments.</div>
+            </div>
           </div>
-          <div class="exp-tags"><span class="tag">Object Detection</span><span class="tag">UAV</span><span class="tag">ROS</span><span class="tag">RoboCup</span><span class="tag">SLAM</span></div>
+          <div class="exp-tags">
+            <span class="tag">Object Detection</span>
+            <span class="tag">UAV</span>
+            <span class="tag">ROS</span>
+            <span class="tag">RoboCup</span>
+            <span class="tag">SLAM</span>
+            <span class="tag">Path Planning</span>
+            <span class="tag">PID Control</span>
+            <span class="tag">Sliding Mode</span>
+            <span class="tag">Autonomous Navigation</span>
+          </div>
         </div>
-
-      </div>
     </div>
   </section>
 
@@ -1021,9 +1070,9 @@
       -->
       <div class="feat-projects-grid">
 
-        <a href="#" class="feat-card reveal">
+        <a href="https://www.linkedin.com/posts/amir-mohammad-nouri_artificialintelligence-ai-computervision-activity-7368253060206202884-AHf6?utm_source=share&utm_medium=member_desktop&rcm=ACoAADbVw4ABTmcGEgX3joIc-tBLBxf2lGQ0M0E" target="_blank" rel="noopener" class="feat-card reveal">
           <div class="feat-img fg-teal">
-            <div class="feat-img-placeholder"><span class="feat-img-icon">&#x1F9B7;</span></div>
+            <img src="OrthoApp.jpeg" alt="Project name" />
           </div>
           <div class="feat-body">
             <div class="feat-tags"><span class="feat-tag ft-teal">ViT</span><span class="feat-tag ft-slate">PyTorch</span><span class="feat-tag ft-gold">Medical AI</span></div>
@@ -1033,9 +1082,9 @@
           </div>
         </a>
 
-        <a href="#" class="feat-card reveal">
+        <a href="https://www.linkedin.com/posts/amir-mohammad-nouri_ai-healthcare-medicalimaging-activity-7372578269193211904-CAMK?utm_source=share&utm_medium=member_desktop&rcm=ACoAADbVw4ABTmcGEgX3joIc-tBLBxf2lGQ0M0E" target="_blank" rel="noopener" class="feat-card reveal">
           <div class="feat-img fg-slate">
-            <div class="feat-img-placeholder"><span class="feat-img-icon">&#x1F52C;</span></div>
+            <img src="Healthyscope.jpeg" alt="Project name" />
           </div>
           <div class="feat-body">
             <div class="feat-tags"><span class="feat-tag ft-teal">Segmentation</span><span class="feat-tag ft-gold">Healthcare</span></div>
@@ -1045,9 +1094,9 @@
           </div>
         </a>
 
-        <a href="#" class="feat-card reveal">
+        <a href="https://www.linkedin.com/posts/amir-mohammad-nouri_artificialintelligence-healthtech-innovation-activity-7406617466224852992-sWQp?utm_source=share&utm_medium=member_desktop&rcm=ACoAADbVw4ABTmcGEgX3joIc-tBLBxf2lGQ0M0E" target="_blank" rel="noopener" class="feat-card reveal">
           <div class="feat-img fg-navy">
-            <div class="feat-img-placeholder"><span class="feat-img-icon">&#x1FAB1;</span></div>
+            <img src="PE.png" alt="Project name" />
           </div>
           <div class="feat-body">
             <div class="feat-tags"><span class="feat-tag ft-slate">U-Net</span><span class="feat-tag ft-stone">MONAI</span><span class="feat-tag ft-teal">CT Imaging</span></div>
@@ -1057,9 +1106,9 @@
           </div>
         </a>
 
-        <a href="#" class="feat-card reveal">
+        <a href="https://www.linkedin.com/posts/mostafa-ghelich-oghli_simuts-ai-powered-solution-the-future-ugcPost-7231615047481851904-KeFV?utm_source=share&utm_medium=member_desktop&rcm=ACoAADbVw4ABTmcGEgX3joIc-tBLBxf2lGQ0M0E" target="_blank" rel="noopener" class="feat-card reveal">
           <div class="feat-img fg-stone">
-            <div class="feat-img-placeholder"><span class="feat-img-icon">&#x1F931;</span></div>
+            <img src="Obs.png" alt="Project name" />
           </div>
           <div class="feat-body">
             <div class="feat-tags"><span class="feat-tag ft-teal">YOLOv8</span><span class="feat-tag ft-stone">Ultrasound</span><span class="feat-tag ft-gold">Prenatal AI</span></div>
@@ -1069,9 +1118,9 @@
           </div>
         </a>
 
-        <a href="#" class="feat-card reveal">
+        <a href="https://www.linkedin.com/in/amir-mohammad-nouri/" target="_blank" rel="noopener" class="feat-card reveal">
           <div class="feat-img fg-gold">
-            <div class="feat-img-placeholder"><span class="feat-img-icon">&#x1F493;</span></div>
+            <img src="msa-wearables.png" alt="Project name" />
           </div>
           <div class="feat-body">
             <div class="feat-tags"><span class="feat-tag ft-gold">ECG / PPG</span><span class="feat-tag ft-stone">Wearables</span></div>
@@ -1081,9 +1130,9 @@
           </div>
         </a>
 
-        <a href="#" class="feat-card reveal">
+        <a href="https://www.linkedin.com/posts/amir-mohammad-nouri_artificialintelligence-medicalimaging-vectorflow-activity-7322564285799317504-BaWG?utm_source=share&utm_medium=member_desktop&rcm=ACoAADbVw4ABTmcGEgX3joIc-tBLBxf2lGQ0M0E" target="_blank" rel="noopener" class="feat-card reveal">
           <div class="feat-img fg-rose">
-            <div class="feat-img-placeholder"><span class="feat-img-icon">&#x2764;&#xFE0F;</span></div>
+            <img src="VFI1.png" alt="Project name" />
           </div>
           <div class="feat-body">
             <div class="feat-tags"><span class="feat-tag ft-rose">Echocardiography</span><span class="feat-tag ft-slate">VFI</span></div>
@@ -1121,8 +1170,8 @@
       <div class="pub-list">
         <div class="pub-card reveal"><div class="pub-venue">Journal</div><div><div class="pub-title">Designing a ViT-based Lateral Cephalometric Radiography Processing System for Treatment Planning with Removable Orthodontic Appliances in Children</div><div class="pub-authors">Nouri, A., Rajaei, I., et al. &mdash; Orthodontics Craniofacial Research &middot; 2025</div><div class="pub-status">&#x23F3; Under Review</div></div></div>
         <div class="pub-card reveal"><div class="pub-venue">Journal</div><div><div class="pub-title">Development and Evaluation of a Deep Learning Model Using YOLOv8 to Measure Nuchal Translucency from Obstetric Ultrasound Images in First-Trimester Screening</div><div class="pub-authors">Nouri, A., Arefi, S., et al. &mdash; Int. J. Imaging Systems Technology (IMA) &middot; 2025</div><div class="pub-status">&#x23F3; Under Review</div></div></div>
-        <div class="pub-card reveal"><div class="pub-venue">Journal</div><div><div class="pub-title">Automated AI-Driven Measurement of Kidney Length in Ultrasound Images</div><div class="pub-authors">Amini, L., Ghelich, M., Tarzamni, MK., Moradi, K., Nouri, A., et al. &mdash; Scientific Reports &middot; 2025</div><div class="pub-status">&#x23F3; Under Review</div></div></div>
-        <div class="pub-card reveal"><div class="pub-venue">Conference</div><div><div class="pub-title">A Vision-Based Approach for Quadrotor Line Following with Sliding Mode Controller</div><div class="pub-authors">Hazareh, G., Azizi, K., Mazloumi, A., Nouri, A., et al. &mdash; 10th Intl. Conference on AI and Robotics &middot; 2024</div><div class="pub-status">&#x2705; Published</div></div></div>
+        <div class="pub-card reveal"><div class="pub-venue">Journal</div><div><div class="pub-title">Automated AI-Driven Measurement of Kidney Length in Ultrasound Images</div><div class="pub-authors">Amini, L., Ghelich, M., Tarzamni, MK., Moradi, K., Nouri, A., et al. &mdash; Scientific Reports &middot; 2025</div><div class="pub-status">&#x1F4DD; Preprint</div><a href="https://www.researchgate.net/publication/393666495_Automated_AI-Driven_Measurement_of_Kidney_Length_in_Ultrasound_Images_A_Validation_Study_in_Adult_and_Pediatric_Groups" target="_blank" rel="noopener" class="pub-btn">View Publication &rarr;</a></div></div>
+        <div class="pub-card reveal"><div class="pub-venue">Conference</div><div><div class="pub-title">A Vision-Based Approach for Quadrotor Line Following with Sliding Mode Controller</div><div class="pub-authors">Hazareh, G., Azizi, K., Mazloumi, A., Nouri, A., et al. &mdash; 10th Intl. Conference on AI and Robotics (IEEE) &middot; 2024</div><div class="pub-status">&#x2705; Published</div><a href="https://ieeexplore.ieee.org/document/10496632" target="_blank" rel="noopener" class="pub-btn">View Publication &rarr;</a></div></div>
       </div>
     </div>
   </section>
